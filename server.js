@@ -2,6 +2,7 @@ import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
 import { Configuration, OpenAIApi } from 'openai'
+import bodyParser from 'body-parser';
 
 dotenv.config()
 
@@ -14,6 +15,8 @@ const openai = new OpenAIApi(configuration);
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.use(bodyParser.json({limit:"30mb",extended:true}));
+app.use(bodyParser.urlencoded({limit:"30mb",extended:true}));
 
 app.get('/', async (req, res) => {
     res.status(200).send({
